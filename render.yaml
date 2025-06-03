@@ -3,5 +3,10 @@ services:
     name: flask-app
     env: python
     buildCommand: ""
-    startCommand: gunicorn app:app
+    startCommand: gunicorn wsgi:app
     plan: free
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
