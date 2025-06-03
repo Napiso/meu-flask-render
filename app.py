@@ -1,6 +1,7 @@
 from flask import Flask
 from models import db
 from routes.main import main
+from config import Config
 from routes.auth import auth
 
 def create_app():
@@ -9,6 +10,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
+    app.config.from_object(Config)
 
     with app.app_context():
         db.create_all()
