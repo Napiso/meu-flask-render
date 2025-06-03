@@ -2,12 +2,11 @@ from flask import Flask
 from models import db
 from routes.main import main
 from routes.auth import auth
+from config import Config
 
-def create_app():
+def create_app(config_class=Config):
     app = Flask(__name__)
-    app.secret_key = 'minha-chave-super-secreta'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config.from_object(config_class)
     db.init_app(app)
 
     with app.app_context():
